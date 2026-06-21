@@ -1,0 +1,20 @@
+@extends('layouts.app')
+
+@section('page-title', 'Add Staff Member')
+
+@section('content')
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.staff-members.store') }}" enctype="multipart/form-data">
+                @csrf
+
+                @include('admin.members._form')
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Create Staff Member</button>
+                    <a href="{{ route('admin.staff-members.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
