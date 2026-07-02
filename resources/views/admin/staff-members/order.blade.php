@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('page-title', 'Manage Faculty Order')
+@section('page-title', 'Manage Staff Order')
 
 @section('content')
     <div class="mb-4">
-        <a href="{{ route('admin.faculty-members.index') }}" class="btn btn-outline-secondary btn-sm">← Back to Faculty Members</a>
+        <a href="{{ route('admin.staff-members.index') }}" class="btn btn-outline-secondary btn-sm">← Back to Staff Members</a>
     </div>
 
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
-            <form method="GET" action="{{ route('admin.faculty-members.order.index') }}" class="row g-3 align-items-end">
+            <form method="GET" action="{{ route('admin.staff-members.order.index') }}" class="row g-3 align-items-end">
                 <div class="col-md-5">
                     <label for="faculty_id" class="form-label">Faculty <span class="text-danger">*</span></label>
                     <select name="faculty_id" id="faculty_id" class="form-select" required>
@@ -35,17 +35,17 @@
     @if ($selectedFacultyId && $selectedDepartmentId)
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h2 class="h6 mb-0">Drag to reorder faculty members</h2>
-                @if ($members->isNotEmpty() && auth()->user()->can('faculty_members.edit'))
+                <h2 class="h6 mb-0">Drag to reorder staff members</h2>
+                @if ($members->isNotEmpty() && auth()->user()->can('staff_members.edit'))
                     <button type="submit" form="save-order-form" class="btn btn-primary btn-sm">Save Order</button>
                 @endif
             </div>
             <div class="card-body">
                 @if ($members->isEmpty())
-                    <p class="text-muted mb-0">No faculty members found for this faculty and department.</p>
+                    <p class="text-muted mb-0">No staff members found for this faculty and department.</p>
                 @else
-                    @if (auth()->user()->can('faculty_members.edit'))
-                        <form id="save-order-form" method="POST" action="{{ route('admin.faculty-members.order.update') }}">
+                    @if (auth()->user()->can('staff_members.edit'))
+                        <form id="save-order-form" method="POST" action="{{ route('admin.staff-members.order.update') }}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="faculty_id" value="{{ $selectedFacultyId }}">
@@ -77,7 +77,7 @@
 @include('admin.members._faculty-department-script')
 
 @push('scripts')
-    @if ($members->isNotEmpty() && auth()->user()->can('faculty_members.edit'))
+    @if ($members->isNotEmpty() && auth()->user()->can('staff_members.edit'))
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
         <script>
             (function () {

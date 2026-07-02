@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\ProvidesDepartmentOptions;
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Designation;
 use App\Models\FacultyMember;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,14 +25,14 @@ class FacultyMemberController extends Controller
         $this->authorize('viewAny', FacultyMember::class);
 
         $members = FacultyMember::facultyType()
-            ->with(['department', 'faculty'])
+            ->with(['department', 'faculty', 'designation'])
             ->forUser(auth()->user(), true)
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->input('search');
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('designation', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhereHas('designation', fn ($dq) => $dq->where('name', 'like', "%{$search}%"))
                         ->orWhereHas('department', fn ($dq) => $dq->where('name', 'like', "%{$search}%"));
                 });
             })
@@ -82,7 +84,7 @@ class FacultyMemberController extends Controller
     {
         $this->authorize('view', $facultyMember);
 
-        $facultyMember->load(['department', 'faculty']);
+        $facultyMember->load(['department', 'faculty', 'designation', 'additionalDesignation', 'additionalDepartment']);
 
         return view('admin.faculty-members.show', ['member' => $facultyMember]);
     }
@@ -151,6 +153,8 @@ class FacultyMemberController extends Controller
         return [
             'faculties' => $this->facultiesForSelect(),
             'departmentsByFaculty' => $this->departmentsByFacultyForJs($user),
+            'designations' => Designation::orderBy('name')->pluck('name', 'designation_id'),
+            'departments' => Department::where('is_active', true)->orderBy('name')->pluck('name', 'id'),
             'selectedFacultyId' => old('faculty_id', $member?->faculty_id ?? ''),
             'selectedDepartmentId' => old('department_id', $member?->department_id ?? ''),
         ];
@@ -189,7 +193,9 @@ class FacultyMemberController extends Controller
             ]),
             'faculty_id' => ['required', 'exists:faculties,id'],
             'name' => ['required', 'string', 'max:255'],
-            'designation' => ['required', 'string', 'max:255'],
+            'designation_id' => ['required', 'exists:designations,designation_id'],
+            'additional_designation_id' => ['nullable', 'exists:designations,designation_id'],
+            'additional_department_id' => ['nullable', 'exists:departments,id'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'mobile' => ['nullable', 'string', 'max:50'],
@@ -198,8 +204,6 @@ class FacultyMemberController extends Controller
             'address' => ['nullable', 'string'],
             'total_experience' => ['nullable', 'integer', 'min:0', 'max:99'],
             'total_publication' => ['nullable', 'integer', 'min:0', 'max:9999'],
-            'additional_department' => ['nullable', 'string', 'max:255'],
-            'additional_designation' => ['nullable', 'string', 'max:255'],
             'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 

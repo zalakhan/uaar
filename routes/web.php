@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\DesignationController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\FacultyMemberAwardController;
 use App\Http\Controllers\Admin\FacultyMemberController;
 use App\Http\Controllers\Admin\FacultyMemberOrderController;
 use App\Http\Controllers\Admin\FacultyMemberPublicationController;
 use App\Http\Controllers\Admin\StaffMemberController;
+use App\Http\Controllers\Admin\StaffMemberOrderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserPermissionController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('departments', DepartmentController::class);
+    Route::resource('designations', DesignationController::class);
     Route::resource('faculties', FacultyController::class);
 
     Route::get('faculty-members/manage-order', [FacultyMemberOrderController::class, 'index'])
@@ -48,6 +51,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('faculty-members.awards.update');
     Route::delete('faculty-members/{faculty_member}/awards/{award}', [FacultyMemberAwardController::class, 'destroy'])
         ->name('faculty-members.awards.destroy');
+
+    Route::get('staff-members/manage-order', [StaffMemberOrderController::class, 'index'])
+        ->name('staff-members.order.index');
+    Route::put('staff-members/manage-order', [StaffMemberOrderController::class, 'update'])
+        ->name('staff-members.order.update');
 
     Route::resource('staff-members', StaffMemberController::class);
 

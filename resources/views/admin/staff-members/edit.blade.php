@@ -9,7 +9,7 @@
                 @csrf
                 @method('PUT')
 
-                @include('admin.members._form')
+                @include('admin.members._form', ['hideSortOrder' => true])
 
                 <div class="mt-4 d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Update Staff Member</button>

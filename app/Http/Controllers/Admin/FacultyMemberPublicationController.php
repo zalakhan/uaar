@@ -19,6 +19,8 @@ class FacultyMemberPublicationController extends Controller
         $this->authorize('view', $facultyMember);
         $this->ensureFacultyType($facultyMember);
 
+        $facultyMember->load(['designation', 'department']);
+
         $editingPublication = null;
         if ($request->filled('edit')) {
             $this->authorize('update', $facultyMember);

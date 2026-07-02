@@ -12,16 +12,20 @@
     </div>
 
     <div class="col-md-6">
-        <label for="designation" class="form-label">Designation @if($isRequired)<span class="text-danger">*</span>@endif</label>
-        <input type="text" name="designation" id="designation" class="form-control @error('designation') is-invalid @enderror"
-               value="{{ old('designation', $member->designation ?? '') }}" @if($isRequired) required @endif maxlength="255">
-        @error('designation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <label for="designation_id" class="form-label">Designation @if($isRequired)<span class="text-danger">*</span>@endif</label>
+        <select name="designation_id" id="designation_id" class="form-select @error('designation_id') is-invalid @enderror" @if($isRequired) required @endif>
+            <option value="">Select designation</option>
+            @foreach ($designations as $id => $name)
+                <option value="{{ $id }}" @selected(old('designation_id', $member->designation_id ?? '') == $id)>{{ $name }}</option>
+            @endforeach
+        </select>
+        @error('designation_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 
     <div class="col-md-6">
         <label for="faculty_id" class="form-label">Faculty @if($isRequired)<span class="text-danger">*</span>@endif</label>
         <select name="faculty_id" id="faculty_id" class="form-select @error('faculty_id') is-invalid @enderror" @if($isRequired) required @endif>
-            <option value="">@if($isRequired) Select faculty @else No faculty @endif</option>
+            <!-- <option value="">@if($isRequired) Select faculty @else No faculty @endif</option> -->
             @foreach ($faculties as $id => $name)
                 <option value="{{ $id }}" @selected(old('faculty_id', $selectedFacultyId ?? $member->faculty_id ?? '') == $id)>{{ $name }}</option>
             @endforeach
@@ -82,19 +86,25 @@
     </div>
 
     <div class="col-md-6">
-        <label for="additional_department" class="form-label">Additional Department</label>
-        <input type="text" name="additional_department" id="additional_department"
-               class="form-control @error('additional_department') is-invalid @enderror"
-               value="{{ old('additional_department', $member->additional_department ?? '') }}" maxlength="255">
-        @error('additional_department')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <label for="additional_department_id" class="form-label">Additional Department</label>
+        <select name="additional_department_id" id="additional_department_id" class="form-select @error('additional_department_id') is-invalid @enderror">
+            <option value="">No additional department</option>
+            @foreach ($departments as $id => $name)
+                <option value="{{ $id }}" @selected(old('additional_department_id', $member->additional_department_id ?? '') == $id)>{{ $name }}</option>
+            @endforeach
+        </select>
+        @error('additional_department_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 
     <div class="col-md-6">
-        <label for="additional_designation" class="form-label">Additional Designation</label>
-        <input type="text" name="additional_designation" id="additional_designation"
-               class="form-control @error('additional_designation') is-invalid @enderror"
-               value="{{ old('additional_designation', $member->additional_designation ?? '') }}" maxlength="255">
-        @error('additional_designation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <label for="additional_designation_id" class="form-label">Additional Designation</label>
+        <select name="additional_designation_id" id="additional_designation_id" class="form-select @error('additional_designation_id') is-invalid @enderror">
+            <option value="">No additional designation</option>
+            @foreach ($designations as $id => $name)
+                <option value="{{ $id }}" @selected(old('additional_designation_id', $member->additional_designation_id ?? '') == $id)>{{ $name }}</option>
+            @endforeach
+        </select>
+        @error('additional_designation_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 
     <div class="col-md-12">

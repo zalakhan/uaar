@@ -10,7 +10,7 @@
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <h2 class="h6 mb-1">{{ $facultyMember->name }}</h2>
-            <p class="text-muted mb-0">{{ $facultyMember->designation }} — {{ $facultyMember->department?->name }}</p>
+            <p class="text-muted mb-0">{{ $facultyMember->designation?->name ?? '—' }} — {{ $facultyMember->department?->name }}</p>
         </div>
     </div>
 

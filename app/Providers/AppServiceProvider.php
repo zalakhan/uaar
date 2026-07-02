@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Department;
+use App\Models\Designation;
 use App\Models\Faculty;
 use App\Models\FacultyMember;
 use App\Models\StaffMember;
 use App\Models\User;
 use App\Policies\DepartmentPolicy;
+use App\Policies\DesignationPolicy;
 use App\Policies\FacultyMemberPolicy;
 use App\Policies\FacultyPolicy;
 use App\Policies\StaffMemberPolicy;
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Department::class, DepartmentPolicy::class);
+        Gate::policy(Designation::class, DesignationPolicy::class);
         Gate::policy(Faculty::class, FacultyPolicy::class);
         Gate::policy(FacultyMember::class, FacultyMemberPolicy::class);
         Gate::policy(StaffMember::class, StaffMemberPolicy::class);

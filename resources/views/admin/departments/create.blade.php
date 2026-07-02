@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <label for="faculty_id" class="form-label">Faculty</label>
                         <select name="faculty_id" id="faculty_id" class="form-select @error('faculty_id') is-invalid @enderror">
-                            <option value="">No faculty</option>
+                            <!-- <option value="">No faculty</option> -->
                             @foreach ($faculties as $id => $name)
                                 <option value="{{ $id }}" @selected(old('faculty_id') == $id)>{{ $name }}</option>
                             @endforeach

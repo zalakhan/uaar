@@ -19,6 +19,8 @@ class FacultyMemberAwardController extends Controller
         $this->authorize('view', $facultyMember);
         $this->ensureFacultyType($facultyMember);
 
+        $facultyMember->load(['designation', 'department']);
+
         $editingAward = null;
         if ($request->filled('edit')) {
             $this->authorize('update', $facultyMember);

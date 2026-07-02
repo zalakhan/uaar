@@ -16,7 +16,7 @@
                 <dd class="col-sm-9">{{ $member->name }}</dd>
 
                 <dt class="col-sm-3">Designation</dt>
-                <dd class="col-sm-9">{{ $member->designation ?? '—' }}</dd>
+                <dd class="col-sm-9">{{ $member->designation?->name ?? '—' }}</dd>
 
                 <dt class="col-sm-3">Department</dt>
                 <dd class="col-sm-9">{{ $member->department?->name ?? '—' }}</dd>

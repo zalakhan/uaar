@@ -5,9 +5,16 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <p class="text-muted mb-0">Manage departmental staff profiles.</p>
-        @can('create', App\Models\StaffMember::class)
-            <a href="{{ route('admin.staff-members.create') }}" class="btn btn-primary">Add Staff Member</a>
-        @endcan
+        <div class="d-flex gap-2">
+            @can('viewAny', App\Models\StaffMember::class)
+                @if (auth()->user()->can('staff_members.edit'))
+                    <a href="{{ route('admin.staff-members.order.index') }}" class="btn btn-outline-primary">Manage Staff Order</a>
+                @endif
+            @endcan
+            @can('create', App\Models\StaffMember::class)
+                <a href="{{ route('admin.staff-members.create') }}" class="btn btn-primary">Add Staff Member</a>
+            @endcan
+        </div>
     </div>
 
     @include('admin.partials.search-form', [
@@ -31,7 +38,7 @@
                     @forelse ($members as $member)
                         <tr>
                             <td>{{ $member->name }}</td>
-                            <td>{{ $member->designation ?? '—' }}</td>
+                            <td>{{ $member->designation?->name ?? '—' }}</td>
                             <td>{{ $member->department?->name ?? '—' }}</td>
                             <td>
                                 @if ($member->is_active)

@@ -38,7 +38,7 @@
                     @forelse ($members as $member)
                         <tr>
                             <td>{{ $member->name }}</td>
-                            <td>{{ $member->designation ?? '—' }}</td>
+                            <td>{{ $member->designation?->name ?? '—' }}</td>
                             <td>{{ $member->department?->name ?? '—' }}</td>
                             <td>
                                 @if ($member->is_active)

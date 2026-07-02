@@ -14,6 +14,7 @@ return [
     'datesheets' => 'Datesheets',
     'merit_lists' => 'Merit Lists',
     'departments' => 'Departments',
+    'designations' => 'Designations',
     'faculties' => 'Faculties',
     'faculty_members' => 'Faculty Members',
     'staff_members' => 'Staff Members',

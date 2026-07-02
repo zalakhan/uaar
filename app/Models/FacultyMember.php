@@ -14,7 +14,9 @@ class FacultyMember extends Model
         'faculty_id',
         'member_type',
         'name',
-        'designation',
+        'designation_id',
+        'additional_designation_id',
+        'additional_department_id',
         'email',
         'phone',
         'mobile',
@@ -28,8 +30,6 @@ class FacultyMember extends Model
         'is_studyleave',
         'is_onleave',
         'is_active',
-        'additional_department',
-        'additional_designation',
         'photo',
     ];
 
@@ -80,6 +80,30 @@ class FacultyMember extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Primary designation for this member.
+     */
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class, 'designation_id', 'designation_id');
+    }
+
+    /**
+     * Secondary designation for this member.
+     */
+    public function additionalDesignation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class, 'additional_designation_id', 'designation_id');
+    }
+
+    /**
+     * Secondary department for this member.
+     */
+    public function additionalDepartment(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'additional_department_id');
     }
 
     public function faculty(): BelongsTo

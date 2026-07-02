@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\ProvidesDepartmentOptions;
 use App\Http\Controllers\Controller;
-use App\Models\FacultyMember;
+use App\Models\StaffMember;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class FacultyMemberOrderController extends Controller
+class StaffMemberOrderController extends Controller
 {
     use ProvidesDepartmentOptions;
 
     /**
-     * Show manage faculty order page with optional member list.
+     * Show manage staff order page with optional member list.
      */
     public function index(Request $request): View
     {
-        $this->authorize('viewAny', FacultyMember::class);
+        $this->authorize('viewAny', StaffMember::class);
 
         $faculties = $this->facultiesForSelect();
         $departmentsByFaculty = $this->departmentsByFacultyForJs(auth()->user());
@@ -28,8 +28,7 @@ class FacultyMemberOrderController extends Controller
         $members = collect();
 
         if ($selectedFacultyId && $selectedDepartmentId) {
-            $members = FacultyMember::facultyType()
-                ->where('faculty_id', $selectedFacultyId)
+            $members = StaffMember::where('faculty_id', $selectedFacultyId)
                 ->where('department_id', $selectedDepartmentId)
                 ->with(['department', 'designation'])
                 ->orderBy('sort_order')
@@ -37,7 +36,7 @@ class FacultyMemberOrderController extends Controller
                 ->get();
         }
 
-        return view('admin.faculty-members.order', compact(
+        return view('admin.staff-members.order', compact(
             'faculties',
             'departmentsByFaculty',
             'selectedFacultyId',
@@ -51,7 +50,7 @@ class FacultyMemberOrderController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        if (! auth()->user()->can('faculty_members.edit')) {
+        if (! auth()->user()->can('staff_members.edit')) {
             abort(403);
         }
 
@@ -73,8 +72,7 @@ class FacultyMemberOrderController extends Controller
             'order.*' => ['integer', 'exists:faculty_members,id'],
         ]);
 
-        $memberIds = FacultyMember::facultyType()
-            ->where('faculty_id', $validated['faculty_id'])
+        $memberIds = StaffMember::where('faculty_id', $validated['faculty_id'])
             ->where('department_id', $validated['department_id'])
             ->whereIn('id', $validated['order'])
             ->pluck('id');
@@ -84,14 +82,14 @@ class FacultyMemberOrderController extends Controller
         }
 
         foreach ($validated['order'] as $index => $memberId) {
-            FacultyMember::where('id', $memberId)->update(['sort_order' => $index]);
+            StaffMember::where('id', $memberId)->update(['sort_order' => $index]);
         }
 
         return redirect()
-            ->route('admin.faculty-members.order.index', [
+            ->route('admin.staff-members.order.index', [
                 'faculty_id' => $validated['faculty_id'],
                 'department_id' => $validated['department_id'],
             ])
-            ->with('success', 'Faculty order saved successfully.');
+            ->with('success', 'Staff order saved successfully.');
     }
 }

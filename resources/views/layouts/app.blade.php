@@ -43,6 +43,7 @@
                 @php
                     $moduleRoutes = [
                         'departments' => 'admin.departments.index',
+                        'designations' => 'admin.designations.index',
                         'faculties' => 'admin.faculties.index',
                         'faculty_members' => 'admin.faculty-members.index',
                         'staff_members' => 'admin.staff-members.index',
