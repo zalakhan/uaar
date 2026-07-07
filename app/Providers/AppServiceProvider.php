@@ -16,7 +16,10 @@ use App\Policies\StaffMemberPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,5 +43,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(FacultyMember::class, FacultyMemberPolicy::class);
         Gate::policy(StaffMember::class, StaffMemberPolicy::class);
         Paginator::useBootstrapFive();
+
+        if (str_starts_with(config('app.url'), 'https://')) {
+            URL::forceScheme('https');
+        }
     }
 }
