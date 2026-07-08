@@ -33,7 +33,8 @@ class FacultyMemberResource extends JsonResource
             'is_studyleave' => $this->is_studyleave,
             'is_onleave' => $this->is_onleave,
             'sort_order' => $this->sort_order,
-            'photo_url' => $this->photo ? asset('storage/'.$this->photo) : null,
+            // 'photo_url' => $this->photo ? asset('storage/'.$this->photo) : null,
+            'photo_url' => $this->photo ? url('media/faculty/' . basename($this->photo)) : null,
             'publications' => PublicationResource::collection($this->whenLoaded('publications')),
             'awards' => AwardResource::collection($this->whenLoaded('awards')),
         ];

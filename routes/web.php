@@ -64,6 +64,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('users.permissions.edit');
     Route::put('users/{user}/permissions', [UserPermissionController::class, 'update'])
         ->name('users.permissions.update');
+
+        
 });
+Route::get('/media/faculty/{filename}', function ($filename) {
+    $path = storage_path('app/public/faculty-members/' . basename($filename));
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+});    
 
 require __DIR__.'/auth.php';
