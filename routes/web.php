@@ -75,6 +75,15 @@ Route::get('/media/faculty/{filename}', function ($filename) {
     }
 
     return response()->file($path);
-});    
+}); 
+Route::get('/media/staff/{filename}', function ($filename) {
+    $path = storage_path('app/public/staff-members/' . basename($filename));
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+});   
 
 require __DIR__.'/auth.php';

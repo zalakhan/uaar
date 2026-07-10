@@ -33,7 +33,8 @@ class StaffMemberResource extends JsonResource
             'is_studyleave' => $this->is_studyleave,
             'is_onleave' => $this->is_onleave,
             'sort_order' => $this->sort_order,
-            'photo_url' => $this->photo ? asset('storage/'.$this->photo) : null,
+            // 'photo_url' => $this->photo ? asset('storage/'.$this->photo) : null,
+            'photo_url' => $this->photo ? url('media/staff/' . basename($this->photo)) : null,
         ];
     }
 }
