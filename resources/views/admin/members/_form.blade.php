@@ -42,9 +42,9 @@
     </div>
 
     <div class="col-md-6">
-        <label for="email" class="form-label">Email @if($isRequired)<span class="text-danger">*</span>@endif</label>
+        <label for="email" class="form-label">Email</label>
         <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"
-               value="{{ old('email', $member->email ?? '') }}" @if($isRequired) required @endif maxlength="255">
+               value="{{ old('email', $member->email ?? '') }}" maxlength="255">
         @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 

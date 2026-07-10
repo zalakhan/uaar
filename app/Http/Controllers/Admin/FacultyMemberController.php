@@ -65,6 +65,8 @@ class FacultyMemberController extends Controller
 
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('faculty-members', 'public');
+        } else {
+            $validated['photo'] = 'faculty-members/dummy.jpg';
         }
 
         $validated['member_type'] = 'faculty';
@@ -112,10 +114,12 @@ class FacultyMemberController extends Controller
         $validated = $this->validateMember($request, $facultyMember);
 
         if ($request->hasFile('photo')) {
-            if ($facultyMember->photo) {
+            if ($facultyMember->photo && $facultyMember->photo !== 'faculty-members/dummy.jpg') {
                 Storage::disk('public')->delete($facultyMember->photo);
             }
             $validated['photo'] = $request->file('photo')->store('faculty-members', 'public');
+        } elseif (! $facultyMember->photo) {
+            $validated['photo'] = 'faculty-members/dummy.jpg';
         }
 
         $facultyMember->update($validated);
@@ -196,7 +200,7 @@ class FacultyMemberController extends Controller
             'designation_id' => ['required', 'exists:designations,designation_id'],
             'additional_designation_id' => ['nullable', 'exists:designations,designation_id'],
             'additional_department_id' => ['nullable', 'exists:departments,id'],
-            'email' => ['required', 'email', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'mobile' => ['nullable', 'string', 'max:50'],
             'qualification' => ['required', 'string', 'max:255'],

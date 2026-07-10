@@ -64,6 +64,8 @@ class StaffMemberController extends Controller
 
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('staff-members', 'public');
+        } else {
+            $validated['photo'] = 'staff-members/dummy.jpg';
         }
 
         $validated['sort_order'] = $this->nextSortOrder(
@@ -113,10 +115,12 @@ class StaffMemberController extends Controller
         $validated = $this->validateMember($request, $staffMember);
 
         if ($request->hasFile('photo')) {
-            if ($staffMember->photo) {
+            if ($staffMember->photo && $staffMember->photo !== 'staff-members/dummy.jpg') {
                 Storage::disk('public')->delete($staffMember->photo);
             }
             $validated['photo'] = $request->file('photo')->store('staff-members', 'public');
+        } elseif (! $staffMember->photo) {
+            $validated['photo'] = 'staff-members/dummy.jpg';
         }
 
         $staffMember->update($validated);
