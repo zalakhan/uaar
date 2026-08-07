@@ -8,6 +8,7 @@
     <title>{{ config('app.name', 'UAAR Admin') }} @isset($title) — {{ $title }} @endisset</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    @stack('styles')
 </head>
 <body class="bg-light">
     <div class="d-flex" style="min-height: 100vh;">
@@ -42,6 +43,10 @@
                 </li>
                 @php
                     $moduleRoutes = [
+                        'galleries' => 'admin.galleries.index',
+                        'news' => 'admin.news.index',
+                        'tenders' => 'admin.tenders.index',
+                        'jobs' => 'admin.jobs.index',
                         'departments' => 'admin.departments.index',
                         'designations' => 'admin.designations.index',
                         'faculties' => 'admin.faculties.index',

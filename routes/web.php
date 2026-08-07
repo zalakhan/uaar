@@ -8,8 +8,13 @@ use App\Http\Controllers\Admin\FacultyMemberAwardController;
 use App\Http\Controllers\Admin\FacultyMemberController;
 use App\Http\Controllers\Admin\FacultyMemberOrderController;
 use App\Http\Controllers\Admin\FacultyMemberPublicationController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\GalleryPhotoController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\StaffMemberController;
 use App\Http\Controllers\Admin\StaffMemberOrderController;
+use App\Http\Controllers\Admin\TenderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserPermissionController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +63,21 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('staff-members.order.update');
 
     Route::resource('staff-members', StaffMemberController::class);
+
+    Route::resource('news', NewsController::class);
+
+    Route::resource('galleries', GalleryController::class);
+    Route::get('galleries/{gallery}/photos', [GalleryPhotoController::class, 'index'])
+        ->name('galleries.photos.index');
+    Route::post('galleries/{gallery}/photos', [GalleryPhotoController::class, 'store'])
+        ->name('galleries.photos.store');
+    Route::put('galleries/{gallery}/photos/order', [GalleryPhotoController::class, 'updateOrder'])
+        ->name('galleries.photos.order.update');
+    Route::delete('galleries/{gallery}/photos/{photo}', [GalleryPhotoController::class, 'destroy'])
+        ->name('galleries.photos.destroy');
+
+    Route::resource('tenders', TenderController::class);
+    Route::resource('jobs', JobController::class);
 
     // Direct permission assignment per user (super_admin only)
     Route::get('users/{user}/permissions', [UserPermissionController::class, 'edit'])
