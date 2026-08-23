@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 
 class NewsController extends Controller
@@ -13,9 +14,16 @@ class NewsController extends Controller
     /**
      * Return active news articles (paginated).
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $newsItems = News::where('status', true)
+            ->when($request->has('department_id'), function ($query) use ($request) {
+                if ($request->input('department_id') === News::MAIN_WEBSITE_SCOPE) {
+                    $query->whereNull('department_id');
+                } else {
+                    $query->where('department_id', $request->input('department_id'));
+                }
+            })
             ->orderByDesc('published_date')
             ->orderByDesc('id')
             ->paginate(10);
