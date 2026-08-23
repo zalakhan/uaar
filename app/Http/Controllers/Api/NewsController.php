@@ -11,18 +11,24 @@ use Vinkla\Hashids\Facades\Hashids;
 class NewsController extends Controller
 {
     /**
-     * Return all active news articles (no pagination).
+     * Return active news articles (paginated).
      */
     public function index(): JsonResponse
     {
         $newsItems = News::where('status', true)
             ->orderByDesc('published_date')
             ->orderByDesc('id')
-            ->get();
+            ->paginate(10);
 
         return response()->json([
             'success' => true,
-            'data' => NewsResource::collection($newsItems),
+            'data' => NewsResource::collection($newsItems->items())->resolve(),
+            'meta' => [
+                'current_page' => $newsItems->currentPage(),
+                'last_page' => $newsItems->lastPage(),
+                'per_page' => $newsItems->perPage(),
+                'total' => $newsItems->total(),
+            ],
         ]);
     }
 

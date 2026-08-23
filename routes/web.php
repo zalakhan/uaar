@@ -104,6 +104,7 @@ Route::get('/media/staff/{filename}', function ($filename) {
     }
 
     return response()->file($path);
-});   
+}); 
+  
 
 require __DIR__.'/auth.php';
