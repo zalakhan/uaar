@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryResource;
 use App\Models\Gallery;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 
 class GalleryController extends Controller
@@ -13,9 +14,16 @@ class GalleryController extends Controller
     /**
      * Return active galleries (paginated).
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $galleries = Gallery::where('status', true)
+            ->when($request->has('department_id'), function ($query) use ($request) {
+                if ($request->input('department_id') === 'main') {
+                    $query->whereNull('department_id');
+                } else {
+                    $query->where('department_id', $request->input('department_id'));
+                }
+            })
             ->with('thumbnail')
             ->orderByDesc('date')
             ->orderByDesc('id')
