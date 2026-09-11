@@ -6,15 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TenderResource;
 use App\Models\Tender;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TenderController extends Controller
 {
     /**
-     * Return tenders for the current year, grouped by category.
+     * Return tenders grouped by category.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $tenders = Tender::whereYear('due_date', now()->year)
+        $tenders = Tender::query()
+            ->when(
+                $request->filled('due_date_from') && $request->filled('due_date_to'),
+                function ($query) use ($request) {
+                    $query->where(function ($query) use ($request) {
+                        $query->where(function ($query) use ($request) {
+                            $query->whereIn('category', ['Purchase', 'Auction'])
+                                ->whereDate('due_date', '>=', $request->input('due_date_from'))
+                                ->whereDate('due_date', '<=', $request->input('due_date_to'));
+                        })->orWhere(function ($query) {
+                            $query->whereNotIn('category', ['Purchase', 'Auction'])
+                                ->whereYear('due_date', now()->year);
+                        });
+                    });
+                },
+                fn ($query) => $query->whereYear('due_date', now()->year)
+            )
             ->orderByDesc('uploaded_date')
             ->orderByDesc('id')
             ->get();
