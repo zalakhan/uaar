@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\FacultyMemberController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\StaffMemberController;
+use App\Http\Controllers\Api\TenderController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -18,4 +19,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('galleries', [GalleryController::class, 'index']);
     Route::get('galleries/{id}', [GalleryController::class, 'show']);
+
+    Route::get('tenders', [TenderController::class, 'index']);
 });
