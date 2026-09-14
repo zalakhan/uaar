@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CampusPublicationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DesignationController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\TenderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserPermissionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return auth()->check()
@@ -77,6 +79,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('galleries.photos.destroy');
 
     Route::resource('tenders', TenderController::class);
+    Route::resource('campus-publications', CampusPublicationController::class);
     Route::resource('jobs', JobController::class);
 
     // Direct permission assignment per user (super_admin only)
@@ -104,7 +107,22 @@ Route::get('/media/staff/{filename}', function ($filename) {
     }
 
     return response()->file($path);
-}); 
+});
+Route::get('/media/publications/{filename}', function (string $filename) {
+    if (! preg_match('/^[A-Za-z0-9]{40}\.pdf$/', $filename)) {
+        abort(404);
+    }
+
+    $path = Storage::disk('local')->path('publications/'.$filename);
+
+    if (! is_file($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+    ]);
+})->where('filename', '[A-Za-z0-9]{40}\.pdf');
   
 
 require __DIR__.'/auth.php';

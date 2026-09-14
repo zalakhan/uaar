@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\CampusPublication;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Faculty;
@@ -12,6 +13,7 @@ use App\Models\News;
 use App\Models\StaffMember;
 use App\Models\Tender;
 use App\Models\User;
+use App\Policies\CampusPublicationPolicy;
 use App\Policies\DepartmentPolicy;
 use App\Policies\DesignationPolicy;
 use App\Policies\FacultyMemberPolicy;
@@ -53,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(News::class, NewsPolicy::class);
         Gate::policy(Gallery::class, GalleryPolicy::class);
         Gate::policy(Tender::class, TenderPolicy::class);
+        Gate::policy(CampusPublication::class, CampusPublicationPolicy::class);
         Gate::policy(Job::class, JobPolicy::class);
         Paginator::useBootstrapFive();
 

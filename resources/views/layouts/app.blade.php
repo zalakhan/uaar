@@ -46,6 +46,7 @@
                         'galleries' => 'admin.galleries.index',
                         'news' => 'admin.news.index',
                         'tenders' => 'admin.tenders.index',
+                        'campus_publications' => 'admin.campus-publications.index',
                         'jobs' => 'admin.jobs.index',
                         'departments' => 'admin.departments.index',
                         'designations' => 'admin.designations.index',

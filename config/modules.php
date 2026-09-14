@@ -8,6 +8,7 @@ return [
     'galleries' => 'Photo Gallery',
     'news' => 'News',
     'tenders' => 'Tenders',
+    'campus_publications' => 'Campus Publications',
     'jobs' => 'Jobs',
     'internet_passwords' => 'Internet Passwords',
     'alumni' => 'Alumni',
