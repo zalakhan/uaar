@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CampusPublicationController;
 use App\Http\Controllers\Api\FacultyMemberController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\NewsController;
@@ -21,4 +22,6 @@ Route::prefix('v1')->group(function () {
     Route::get('galleries/{id}', [GalleryController::class, 'show']);
 
     Route::get('tenders', [TenderController::class, 'index']);
+
+    Route::get('campus-publications', [CampusPublicationController::class, 'index']);
 });
