@@ -22,6 +22,15 @@ class FacultyMember extends Model
         'mobile',
         'qualification',
         'bio',
+        'research_link',
+        'research_group',
+        'affiliation',
+        'projects_ongoing',
+        'projects_completed',
+        'supervision_phd',
+        'supervision_mphil_ms_msc',
+        'patent',
+        'consultancy_services',
         'address',
         'total_experience',
         'total_publication',
@@ -40,6 +49,10 @@ class FacultyMember extends Model
             'is_studyleave' => 'boolean',
             'is_onleave' => 'boolean',
             'is_active' => 'boolean',
+            'projects_ongoing' => 'integer',
+            'projects_completed' => 'integer',
+            'supervision_phd' => 'integer',
+            'supervision_mphil_ms_msc' => 'integer',
         ];
     }
 

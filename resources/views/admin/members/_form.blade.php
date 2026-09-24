@@ -78,7 +78,7 @@
     </div>
 
     <div class="col-md-3">
-        <label for="total_publication" class="form-label">Publications</label>
+        <label for="total_publication" class="form-label">@if($requireFacultyFields ?? false)Total Publications @else Publications @endif</label>
         <input type="number" name="total_publication" id="total_publication" min="0" max="9999"
                class="form-control @error('total_publication') is-invalid @enderror"
                value="{{ old('total_publication', $member->total_publication ?? '') }}">
@@ -114,10 +114,75 @@
     </div>
 
     <div class="col-md-12">
-        <label for="bio" class="form-label">Bio</label>
+        <label for="bio" class="form-label">@if($requireFacultyFields ?? false)Research Interest @else Bio @endif</label>
         <textarea name="bio" id="bio" rows="3" class="form-control @error('bio') is-invalid @enderror" maxlength="5000">{{ old('bio', $member->bio ?? '') }}</textarea>
         @error('bio')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
+
+    @if ($requireFacultyFields ?? false)
+
+    <div class="col-md-12">
+        <label for="research_link" class="form-label">WoS / ORCID / Google Scholar / Scopus / ResearchGate / Personal Web</label>
+        <textarea name="research_link" id="research_link" rows="2" class="form-control @error('research_link') is-invalid @enderror" maxlength="5000">{{ old('research_link', $member->research_link ?? '') }}</textarea>
+        @error('research_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-12">
+        <label for="research_group" class="form-label">Research Group</label>
+        <textarea name="research_group" id="research_group" rows="2" class="form-control @error('research_group') is-invalid @enderror" maxlength="5000">{{ old('research_group', $member->research_group ?? '') }}</textarea>
+        @error('research_group')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-12">
+        <label for="affiliation" class="form-label">Affiliation</label>
+        <textarea name="affiliation" id="affiliation" rows="2" class="form-control @error('affiliation') is-invalid @enderror" maxlength="5000">{{ old('affiliation', $member->affiliation ?? '') }}</textarea>
+        @error('affiliation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="projects_ongoing" class="form-label">No of Research Projects (Ongoing)</label>
+        <input type="number" name="projects_ongoing" id="projects_ongoing" min="0"
+               class="form-control @error('projects_ongoing') is-invalid @enderror"
+               value="{{ old('projects_ongoing', $member->projects_ongoing ?? '') }}">
+        @error('projects_ongoing')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="projects_completed" class="form-label">No of Research Projects (Completed)</label>
+        <input type="number" name="projects_completed" id="projects_completed" min="0"
+               class="form-control @error('projects_completed') is-invalid @enderror"
+               value="{{ old('projects_completed', $member->projects_completed ?? '') }}">
+        @error('projects_completed')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="supervision_phd" class="form-label">Research Supervision (PhD)</label>
+        <input type="number" name="supervision_phd" id="supervision_phd" min="0"
+               class="form-control @error('supervision_phd') is-invalid @enderror"
+               value="{{ old('supervision_phd', $member->supervision_phd ?? '') }}">
+        @error('supervision_phd')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="supervision_mphil_ms_msc" class="form-label">Research Supervision (MPhil / MS / M.Sc.)</label>
+        <input type="number" name="supervision_mphil_ms_msc" id="supervision_mphil_ms_msc" min="0"
+               class="form-control @error('supervision_mphil_ms_msc') is-invalid @enderror"
+               value="{{ old('supervision_mphil_ms_msc', $member->supervision_mphil_ms_msc ?? '') }}">
+        @error('supervision_mphil_ms_msc')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-12">
+        <label for="patent" class="form-label">Technologies Developed/ Patent/IP etc.</label>
+        <textarea name="patent" id="patent" rows="2" class="form-control @error('patent') is-invalid @enderror" maxlength="5000">{{ old('patent', $member->patent ?? '') }}</textarea>
+        @error('patent')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-12">
+        <label for="consultancy_services" class="form-label">Area(s) of Consultancy Services</label>
+        <textarea name="consultancy_services" id="consultancy_services" rows="2" class="form-control @error('consultancy_services') is-invalid @enderror" maxlength="5000">{{ old('consultancy_services', $member->consultancy_services ?? '') }}</textarea>
+        @error('consultancy_services')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+    @endif
 
     @unless ($hideSortOrder)
         <div class="col-md-3">
