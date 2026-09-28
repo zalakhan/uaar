@@ -62,12 +62,25 @@
         @error('mobile')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 
-    <div class="col-md-6">
+    <div class="{{ ($requireFacultyFields ?? false) ? 'col-12' : 'col-md-6' }}">
         <label for="qualification" class="form-label">Qualification @if($isRequired)<span class="text-danger">*</span>@endif</label>
-        <input type="text" name="qualification" id="qualification" class="form-control @error('qualification') is-invalid @enderror"
-               value="{{ old('qualification', $member->qualification ?? '') }}" @if($isRequired) required @endif maxlength="255">
+        @if ($requireFacultyFields ?? false)
+            <textarea name="qualification" id="qualification" rows="6"
+                      class="form-control @error('qualification') is-invalid @enderror" @if($isRequired) required @endif>{{ old('qualification', $member->qualification ?? '') }}</textarea>
+        @else
+            <input type="text" name="qualification" id="qualification" class="form-control @error('qualification') is-invalid @enderror"
+                   value="{{ old('qualification', $member->qualification ?? '') }}" @if($isRequired) required @endif maxlength="255">
+        @endif
         @error('qualification')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
+
+    @if ($requireFacultyFields ?? false)
+    <div class="col-12">
+        <label for="specialization" class="form-label">Specialization</label>
+        <textarea name="specialization" id="specialization" rows="3" class="form-control @error('specialization') is-invalid @enderror" maxlength="5000">{{ old('specialization', $member->specialization ?? '') }}</textarea>
+        @error('specialization')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+    @endif
 
     <div class="col-md-3">
         <label for="total_experience" class="form-label">Experience (years)</label>

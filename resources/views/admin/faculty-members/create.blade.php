@@ -17,4 +17,8 @@
             </form>
         </div>
     </div>
+
+    @push('scripts')
+        @vite(['resources/js/faculty-member-qualification-editor.js'])
+    @endpush
 @endsection

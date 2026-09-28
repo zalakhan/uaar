@@ -34,7 +34,16 @@
                 <dd class="col-sm-9">{{ $member->mobile ?? '—' }}</dd>
 
                 <dt class="col-sm-3">Qualification</dt>
-                <dd class="col-sm-9">{{ $member->qualification ?? '—' }}</dd>
+                <dd class="col-sm-9">
+                    @if ($member->qualification)
+                        {!! clean($member->qualification, 'news') !!}
+                    @else
+                        —
+                    @endif
+                </dd>
+
+                <dt class="col-sm-3">Specialization</dt>
+                <dd class="col-sm-9">{{ $member->specialization ?? '—' }}</dd>
 
                 <dt class="col-sm-3">Experience</dt>
                 <dd class="col-sm-9">{{ $member->total_experience ?? '—' }} years</dd>

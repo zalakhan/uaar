@@ -25,6 +25,7 @@ class FacultyMemberResource extends JsonResource
             'phone' => $this->phone,
             'mobile' => $this->mobile,
             'qualification' => $this->qualification,
+            'specialization' => $this->specialization,
             'bio' => $this->bio,
             'research_link' => $this->research_link,
             'research_group' => $this->research_group,

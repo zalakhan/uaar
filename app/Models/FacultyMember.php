@@ -21,6 +21,7 @@ class FacultyMember extends Model
         'phone',
         'mobile',
         'qualification',
+        'specialization',
         'bio',
         'research_link',
         'research_group',

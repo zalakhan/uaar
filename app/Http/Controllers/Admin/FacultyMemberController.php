@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\FacultyMember;
+use App\Rules\NotEmptyHtml;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -203,7 +204,8 @@ class FacultyMemberController extends Controller
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'mobile' => ['nullable', 'string', 'max:50'],
-            'qualification' => ['required', 'string', 'max:255'],
+            'qualification' => ['required', 'string', new NotEmptyHtml],
+            'specialization' => ['nullable', 'string'],
             'bio' => ['nullable', 'string'],
             'research_link' => ['nullable', 'string'],
             'research_group' => ['nullable', 'string'],
@@ -224,6 +226,8 @@ class FacultyMemberController extends Controller
         $validated['is_studyleave'] = $request->boolean('is_studyleave');
         $validated['is_onleave'] = $request->boolean('is_onleave');
         $validated['is_active'] = $request->boolean('is_active');
+
+        $validated['qualification'] = clean($validated['qualification'], 'news');
 
         return $validated;
     }

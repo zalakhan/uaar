@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.scss',
                 'resources/js/app.js',
                 'resources/js/news-editor.js',
+                'resources/js/faculty-member-qualification-editor.js',
                 'resources/js/tender-form.js',
             ],
             refresh: true,
