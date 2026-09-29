@@ -35,7 +35,7 @@ class FacultyMemberController extends Controller
     }
 
     /**
-     * Return a single active faculty member with publications and awards.
+     * Return a single active faculty member with publications, awards, and books.
      */
     public function show(string $id): JsonResponse
     {
@@ -58,6 +58,7 @@ class FacultyMemberController extends Controller
                 'faculty',
                 'publications' => fn ($query) => $query->orderByDesc('year')->orderByDesc('id'),
                 'awards' => fn ($query) => $query->orderByDesc('year')->orderByDesc('id'),
+                'books' => fn ($query) => $query->orderByDesc('year')->orderByDesc('id'),
             ])
             ->find($decoded[0]);
 

@@ -48,6 +48,7 @@ class FacultyMemberResource extends JsonResource
             'photo_url' => $this->photo ? url('media/faculty/' . basename($this->photo)) : null,
             'publications' => PublicationResource::collection($this->whenLoaded('publications')),
             'awards' => AwardResource::collection($this->whenLoaded('awards')),
+            'books' => BookResource::collection($this->whenLoaded('books')),
         ];
     }
 }

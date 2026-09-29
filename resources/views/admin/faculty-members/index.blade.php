@@ -51,6 +51,7 @@
                                 @can('view', $member)
                                     <a href="{{ route('admin.faculty-members.publications.index', $member) }}" class="btn btn-sm btn-outline-info">Manage Publications</a>
                                     <a href="{{ route('admin.faculty-members.awards.index', $member) }}" class="btn btn-sm btn-outline-info">Manage Awards</a>
+                                    <a href="{{ route('admin.faculty-members.books.index', $member) }}" class="btn btn-sm btn-outline-info">Manage Books</a>
                                 @endcan
                                 <a href="{{ route('admin.faculty-members.show', $member) }}" class="btn btn-sm btn-outline-secondary">View</a>
                                 @can('update', $member)

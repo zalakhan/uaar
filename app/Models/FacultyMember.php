@@ -140,4 +140,12 @@ class FacultyMember extends Model
     {
         return $this->hasMany(Award::class);
     }
+
+    /**
+     * Books for this faculty member.
+     */
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }

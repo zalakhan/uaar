@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DesignationController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\FacultyMemberAwardController;
+use App\Http\Controllers\Admin\FacultyMemberBookController;
 use App\Http\Controllers\Admin\FacultyMemberController;
 use App\Http\Controllers\Admin\FacultyMemberOrderController;
 use App\Http\Controllers\Admin\FacultyMemberPublicationController;
@@ -58,6 +59,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('faculty-members.awards.update');
     Route::delete('faculty-members/{faculty_member}/awards/{award}', [FacultyMemberAwardController::class, 'destroy'])
         ->name('faculty-members.awards.destroy');
+
+    Route::get('faculty-members/{faculty_member}/books', [FacultyMemberBookController::class, 'index'])
+        ->name('faculty-members.books.index');
+    Route::post('faculty-members/{faculty_member}/books', [FacultyMemberBookController::class, 'store'])
+        ->name('faculty-members.books.store');
+    Route::put('faculty-members/{faculty_member}/books/{book}', [FacultyMemberBookController::class, 'update'])
+        ->name('faculty-members.books.update');
+    Route::delete('faculty-members/{faculty_member}/books/{book}', [FacultyMemberBookController::class, 'destroy'])
+        ->name('faculty-members.books.destroy');
 
     Route::get('staff-members/manage-order', [StaffMemberOrderController::class, 'index'])
         ->name('staff-members.order.index');
