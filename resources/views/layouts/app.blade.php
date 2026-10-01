@@ -56,6 +56,9 @@
                     ];
                 @endphp
                 @foreach (config('modules') as $slug => $label)
+                    @if ($slug === 'newsprint')
+                        @continue
+                    @endif
                     @can("{$slug}.view")
                         <li class="nav-item">
                             @if (isset($moduleRoutes[$slug]))
@@ -70,6 +73,18 @@
                         </li>
                     @endcan
                 @endforeach
+
+                @can('newsprint.view')
+                <li class="nav-item mt-3">
+                    <span class="nav-link text-secondary small text-uppercase">Media Coverage</span>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.newsprint-albums.index') }}"
+                       class="nav-link text-white {{ request()->routeIs('admin.newsprint-albums.*') || request()->routeIs('admin.newspapers.*') ? 'active bg-primary rounded' : '' }}">
+                        Print
+                    </a>
+                </li>
+                @endcan
             </ul>
         </nav>
 

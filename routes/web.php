@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryPhotoController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\NewspaperController;
+use App\Http\Controllers\Admin\NewsPrintController;
+use App\Http\Controllers\Admin\NewsprintAlbumController;
 use App\Http\Controllers\Admin\StaffMemberController;
 use App\Http\Controllers\Admin\StaffMemberOrderController;
 use App\Http\Controllers\Admin\TenderController;
@@ -91,6 +94,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('tenders', TenderController::class);
     Route::resource('campus-publications', CampusPublicationController::class);
     Route::resource('jobs', JobController::class);
+
+    Route::resource('newspapers', NewspaperController::class)->except(['show']);
+    Route::resource('newsprint-albums', NewsprintAlbumController::class);
+    Route::post('newsprint-albums/{newsprint_album}/clippings', [NewsPrintController::class, 'store'])
+        ->name('newsprint-albums.clippings.store');
+    Route::put('newsprint-albums/{newsprint_album}/clippings/{news_print}', [NewsPrintController::class, 'update'])
+        ->name('newsprint-albums.clippings.update');
+    Route::delete('newsprint-albums/{newsprint_album}/clippings/{news_print}', [NewsPrintController::class, 'destroy'])
+        ->name('newsprint-albums.clippings.destroy');
 
     // Direct permission assignment per user (super_admin only)
     Route::get('users/{user}/permissions', [UserPermissionController::class, 'edit'])

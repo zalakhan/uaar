@@ -10,6 +10,8 @@ use App\Models\FacultyMember;
 use App\Models\Gallery;
 use App\Models\Job;
 use App\Models\News;
+use App\Models\Newspaper;
+use App\Models\NewsprintAlbum;
 use App\Models\StaffMember;
 use App\Models\Tender;
 use App\Models\User;
@@ -21,6 +23,8 @@ use App\Policies\FacultyPolicy;
 use App\Policies\GalleryPolicy;
 use App\Policies\JobPolicy;
 use App\Policies\NewsPolicy;
+use App\Policies\NewspaperPolicy;
+use App\Policies\NewsprintAlbumPolicy;
 use App\Policies\StaffMemberPolicy;
 use App\Policies\TenderPolicy;
 use App\Policies\UserPolicy;
@@ -57,6 +61,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Tender::class, TenderPolicy::class);
         Gate::policy(CampusPublication::class, CampusPublicationPolicy::class);
         Gate::policy(Job::class, JobPolicy::class);
+        Gate::policy(Newspaper::class, NewspaperPolicy::class);
+        Gate::policy(NewsprintAlbum::class, NewsprintAlbumPolicy::class);
         Paginator::useBootstrapFive();
 
         // Ensure generated asset URLs match the configured application URL (needed for XAMPP subdirectories).

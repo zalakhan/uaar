@@ -10,6 +10,7 @@ return [
     'tenders' => 'Tenders',
     'campus_publications' => 'Campus Publications',
     'jobs' => 'Jobs',
+    'newsprint' => 'Media Coverage (Print)',
     'internet_passwords' => 'Internet Passwords',
     'alumni' => 'Alumni',
     'datesheets' => 'Datesheets',

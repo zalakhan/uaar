@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CampusPublicationController;
 use App\Http\Controllers\Api\FacultyMemberController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\NewsprintAlbumController;
 use App\Http\Controllers\Api\StaffMemberController;
 use App\Http\Controllers\Api\TenderController;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('campus-publications', [CampusPublicationController::class, 'index']);
 });
+
+Route::get('newsprint-albums', [NewsprintAlbumController::class, 'index']);
+Route::get('newsprint-albums/{id}', [NewsprintAlbumController::class, 'show']);
