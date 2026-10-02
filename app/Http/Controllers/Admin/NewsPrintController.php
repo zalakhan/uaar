@@ -21,7 +21,7 @@ class NewsPrintController extends Controller
 
             $newsprintAlbum->newsPrints()->create([
                 'newspaper_id' => $clipping['newspaper_id'],
-                'news_file' => $file->store('newsprint/'.$newsprintAlbum->id, 'public'),
+                'news_file' => $file->store('newsprint', 'public'),
             ]);
         }
 
@@ -39,7 +39,7 @@ class NewsPrintController extends Controller
 
         if ($request->hasFile('news_file')) {
             Storage::disk('public')->delete($newsPrint->news_file);
-            $data['news_file'] = $request->file('news_file')->store('newsprint/'.$newsprintAlbum->id, 'public');
+            $data['news_file'] = $request->file('news_file')->store('newsprint', 'public');
         }
 
         $newsPrint->update($data);

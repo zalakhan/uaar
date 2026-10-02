@@ -34,6 +34,10 @@ class NewsprintAlbum extends Model
      */
     public function deleteStoredFiles(): void
     {
-        Storage::disk('public')->deleteDirectory('newsprint/'.$this->id);
+        $this->newsPrints()->each(function (NewsPrint $newsPrint) {
+            if ($newsPrint->news_file) {
+                Storage::disk('public')->delete($newsPrint->news_file);
+            }
+        });
     }
 }
