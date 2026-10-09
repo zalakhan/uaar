@@ -7,7 +7,7 @@ The portal is a decoupled system: a **Laravel 12** application manages all conte
 | Part | URL | Role |
 |------|-----|------|
 | Laravel admin + REST API | https://uaarportal.uaar.edu.pk | Content management, authentication, API |
-| WordPress frontend | https://www.uaar.edu.pk (staged earlier at new.uaar.edu.pk) | Public website |
+| WordPress frontend | https://www.uaar.edu.pk | Public website |
 
 ---
 
