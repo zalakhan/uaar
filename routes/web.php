@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\StaffMemberOrderController;
 use App\Http\Controllers\Admin\TenderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserPermissionController;
+use App\Http\Controllers\DegreeVerificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,6 +31,13 @@ Route::get('/', function () {
         ? redirect()->route('admin.dashboard')
         : redirect()->route('login');
 });
+
+Route::get('/degree-verification', [DegreeVerificationController::class, 'index'])
+    ->name('degree-verification.index');
+
+Route::post('/degree-verification', [DegreeVerificationController::class, 'store'])
+    ->middleware('throttle:30,1')
+    ->name('degree-verification.store');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
