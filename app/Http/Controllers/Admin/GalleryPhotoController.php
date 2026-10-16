@@ -86,17 +86,33 @@ class GalleryPhotoController extends Controller
 
 
 
+        $hasThumbnail = $gallery->hasThumbnailPhoto();
+
         $nextSortOrder = (int) $gallery->photos()->max('sort_order') + 1;
 
 
 
         foreach ($validated['photos'] as $file) {
 
+            if (! $hasThumbnail) {
+
+                $sortOrder = 0;
+
+                $hasThumbnail = true;
+
+            } else {
+
+                $sortOrder = $nextSortOrder++;
+
+            }
+
+
+
             $gallery->photos()->create([
 
                 'photo' => $file->store('galleries', 'public'),
 
-                'sort_order' => $nextSortOrder++,
+                'sort_order' => $sortOrder,
 
             ]);
 

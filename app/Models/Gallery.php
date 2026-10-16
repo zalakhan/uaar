@@ -128,5 +128,89 @@ class Gallery extends Model
 
     }
 
+
+
+    /**
+
+     * Whether this gallery already has a photo marked as the thumbnail.
+
+     */
+
+    public function hasThumbnailPhoto(): bool
+
+    {
+
+        return $this->photos()->where('sort_order', 0)->exists();
+
+    }
+
+
+
+    /**
+
+     * Thumbnail photo (sort_order 0), or the first photo when none is set.
+
+     */
+
+    public function resolveThumbnailPhoto(): ?GalleryPhoto
+
+    {
+
+        $thumbnail = $this->relationLoaded('thumbnail')
+
+            ? $this->thumbnail
+
+            : $this->thumbnail()->first();
+
+
+
+        if ($thumbnail) {
+
+            return $thumbnail;
+
+        }
+
+
+
+        if ($this->relationLoaded('photos')) {
+
+            return $this->photos->first();
+
+        }
+
+
+
+        return $this->photos()->orderBy('sort_order')->orderBy('id')->first();
+
+    }
+
+
+
+    /**
+
+     * Public thumbnail URL (same format as gallery photo URLs in the API).
+
+     */
+
+    public function thumbnailUrl(): ?string
+
+    {
+
+        $photo = $this->resolveThumbnailPhoto();
+
+
+
+        if (! $photo?->photo) {
+
+            return null;
+
+        }
+
+
+
+        return asset('storage/'.$photo->photo);
+
+    }
+
 }
 

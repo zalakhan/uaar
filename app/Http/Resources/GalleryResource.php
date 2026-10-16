@@ -22,10 +22,7 @@ class GalleryResource extends JsonResource
             'slug' => $this->slug,
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
-            'thumbnail_url' => $this->when(
-                $this->relationLoaded('thumbnail'),
-                fn () => $this->thumbnail?->photo ? asset('storage/'.$this->thumbnail->photo) : null
-            ),
+            'thumbnail_url' => $this->resource->thumbnailUrl(),
             'photos' => GalleryPhotoResource::collection($this->whenLoaded('photos')),
         ];
     }
