@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Concerns\ThrottlesGuestAuthRoutes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -11,6 +12,8 @@ use Illuminate\View\View;
 
 class PasswordResetLinkController extends Controller
 {
+    use ThrottlesGuestAuthRoutes;
+
     /**
      * Display the password reset link request view.
      */
@@ -26,6 +29,8 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $this->throttleGuestAuthRequest($request, 'forgot-password', 3);
+
         $request->validate([
             'email' => ['required', 'email'],
         ]);

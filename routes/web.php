@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountPasswordController;
 use App\Http\Controllers\Admin\CampusPublicationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
@@ -41,6 +42,8 @@ Route::post('/degree-verification', [DegreeVerificationController::class, 'store
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('account/password', [AccountPasswordController::class, 'edit'])->name('account.password.edit');
+    Route::put('account/password', [AccountPasswordController::class, 'update'])->name('account.password.update');
     Route::resource('users', UserController::class);
     Route::resource('departments', DepartmentController::class);
     Route::resource('designations', DesignationController::class);

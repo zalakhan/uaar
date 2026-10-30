@@ -1,0 +1,711 @@
+:root {
+    --uaar-reseda-green: #6e8649;
+    --uaar-fern-green: #477023;
+    --uaar-dark-moss: #2d531a;
+    --uaar-pakistan-green: #0d330e;
+    --uaar-dark-green: #071e07;
+    --uaar-surface: color-mix(in srgb, var(--uaar-reseda-green) 6%, white);
+    --uaar-surface-elevated: color-mix(in srgb, var(--uaar-reseda-green) 3%, white);
+    --uaar-border: color-mix(in srgb, var(--uaar-reseda-green) 22%, white);
+    --uaar-text: var(--uaar-dark-green);
+    --uaar-text-muted: color-mix(in srgb, var(--uaar-dark-moss) 55%, white);
+    --uaar-text-on-dark: color-mix(in srgb, var(--uaar-reseda-green) 18%, white);
+    --uaar-text-on-dark-muted: color-mix(in srgb, var(--uaar-reseda-green) 42%, white);
+    --uaar-text-inverse: color-mix(in srgb, var(--uaar-reseda-green) 12%, white);
+    --uaar-sidebar-bg: var(--uaar-pakistan-green);
+    --uaar-sidebar-border: var(--uaar-dark-moss);
+    --uaar-sidebar-hover-bg: var(--uaar-dark-moss);
+    --uaar-sidebar-active-bg: var(--uaar-fern-green);
+    --uaar-sidebar-footer-bg: var(--uaar-dark-green);
+    --uaar-sidebar-icon: var(--uaar-reseda-green);
+    --uaar-overlay: color-mix(in srgb, var(--uaar-dark-green) 55%, transparent);
+    --uaar-shadow: 0 8px 30px color-mix(in srgb, var(--uaar-dark-green) 8%, transparent);
+    --uaar-focus-ring: color-mix(in srgb, var(--uaar-fern-green) 22%, transparent);
+    --uaar-table-hover: color-mix(in srgb, var(--uaar-reseda-green) 10%, transparent);
+    --uaar-table-head-bg: color-mix(in srgb, var(--uaar-reseda-green) 14%, white);
+    --uaar-alert-success-bg: color-mix(in srgb, var(--uaar-reseda-green) 18%, white);
+    --uaar-alert-success-text: var(--uaar-dark-moss);
+    --uaar-alert-danger-bg: color-mix(in srgb, var(--uaar-reseda-green) 10%, white);
+    --uaar-alert-danger-text: var(--uaar-pakistan-green);
+    --uaar-auth-input-bg: color-mix(in srgb, var(--uaar-reseda-green) 4%, white);
+    --uaar-hero-overlay-start: color-mix(in srgb, var(--uaar-dark-green) 55%, transparent);
+    --uaar-hero-overlay-mid: color-mix(in srgb, var(--uaar-pakistan-green) 35%, transparent);
+    --uaar-hero-overlay-end: color-mix(in srgb, var(--uaar-dark-moss) 50%, transparent);
+    --uaar-sidebar-width: 268px;
+    --uaar-radius: 14px;
+    --uaar-radius-sm: 10px;
+}
+
+/* Bootstrap theme (admin shell) */
+.admin-app {
+    --bs-body-bg: var(--uaar-surface);
+    --bs-body-color: var(--uaar-text);
+    --bs-primary: var(--uaar-fern-green);
+    --bs-link-color: var(--uaar-fern-green);
+    --bs-link-hover-color: var(--uaar-dark-moss);
+    --bs-border-color: var(--uaar-border);
+    --bs-border-radius: var(--uaar-radius-sm);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.admin-app .btn-primary {
+    --bs-btn-bg: var(--uaar-fern-green);
+    --bs-btn-border-color: var(--uaar-fern-green);
+    --bs-btn-hover-bg: var(--uaar-dark-moss);
+    --bs-btn-hover-border-color: var(--uaar-dark-moss);
+    --bs-btn-active-bg: var(--uaar-pakistan-green);
+    --bs-btn-active-border-color: var(--uaar-pakistan-green);
+    --bs-btn-color: var(--uaar-text-inverse);
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+}
+
+.admin-app .btn-outline-primary {
+    --bs-btn-color: var(--uaar-fern-green);
+    --bs-btn-border-color: var(--uaar-fern-green);
+    --bs-btn-hover-bg: var(--uaar-fern-green);
+    --bs-btn-hover-border-color: var(--uaar-fern-green);
+    --bs-btn-hover-color: var(--uaar-text-inverse);
+    border-radius: 999px;
+}
+
+.admin-app .btn-outline-secondary {
+    --bs-btn-color: var(--uaar-dark-moss);
+    --bs-btn-border-color: color-mix(in srgb, var(--uaar-dark-moss) 35%, white);
+    --bs-btn-hover-bg: var(--uaar-reseda-green);
+    --bs-btn-hover-border-color: var(--uaar-reseda-green);
+    --bs-btn-hover-color: var(--uaar-text-inverse);
+    border-radius: 999px;
+}
+
+.admin-app .btn-secondary {
+    --bs-btn-bg: var(--uaar-reseda-green);
+    --bs-btn-border-color: var(--uaar-reseda-green);
+    --bs-btn-color: var(--uaar-text-inverse);
+    border-radius: 999px;
+}
+
+.admin-app .btn-sm {
+    border-radius: 999px;
+}
+
+.admin-app .btn-warning {
+    --bs-btn-bg: var(--uaar-reseda-green);
+    --bs-btn-border-color: var(--uaar-reseda-green);
+    --bs-btn-color: var(--uaar-text-inverse);
+}
+
+.admin-app .card {
+    border: 1px solid var(--uaar-border);
+    border-radius: var(--uaar-radius);
+    box-shadow: var(--uaar-shadow);
+}
+
+.admin-app .table {
+    --bs-table-bg: transparent;
+    margin-bottom: 0;
+}
+
+.admin-app .table thead th {
+    background: var(--uaar-table-head-bg);
+    color: var(--uaar-dark-moss);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--uaar-border);
+    padding: 0.85rem 1rem;
+}
+
+.admin-app .table tbody td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-color: var(--uaar-border);
+    color: var(--uaar-text);
+}
+
+.admin-app .table-hover tbody tr:hover {
+    background: var(--uaar-table-hover);
+}
+
+.admin-app .badge.bg-primary {
+    background-color: var(--uaar-fern-green) !important;
+    color: var(--uaar-text-inverse) !important;
+}
+
+.admin-app .badge.bg-secondary {
+    background-color: var(--uaar-reseda-green) !important;
+    color: var(--uaar-text-inverse) !important;
+}
+
+.admin-app .text-muted {
+    color: var(--uaar-text-muted) !important;
+}
+
+.admin-app .form-control,
+.admin-app .form-select {
+    border-radius: var(--uaar-radius-sm);
+    border-color: var(--uaar-border);
+    padding: 0.6rem 0.85rem;
+}
+
+.admin-app .form-control:focus,
+.admin-app .form-select:focus {
+    border-color: var(--uaar-reseda-green);
+    box-shadow: 0 0 0 0.2rem var(--uaar-focus-ring);
+}
+
+.admin-app .alert {
+    border-radius: var(--uaar-radius-sm);
+    border: none;
+}
+
+.admin-app .alert-success {
+    background: var(--uaar-alert-success-bg);
+    color: var(--uaar-alert-success-text);
+}
+
+.admin-app .alert-danger {
+    background: var(--uaar-alert-danger-bg);
+    color: var(--uaar-alert-danger-text);
+}
+
+/* Shell */
+.admin-shell {
+    display: flex;
+    min-height: 100vh;
+    background: var(--uaar-surface);
+}
+
+.admin-sidebar {
+    width: var(--uaar-sidebar-width);
+    flex-shrink: 0;
+    background: var(--uaar-sidebar-bg);
+    border-right: 1px solid var(--uaar-sidebar-border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1040;
+    overflow-y: auto;
+    transition: transform 0.25s ease;
+}
+
+.admin-sidebar__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--uaar-text-on-dark);
+    margin-bottom: 1.25rem;
+    padding: 0 0.35rem 1.15rem;
+    border-bottom: 1px solid var(--uaar-sidebar-border);
+}
+
+.admin-sidebar__logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.admin-sidebar__brand-text {
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.25;
+    color: var(--uaar-text-on-dark);
+}
+
+.admin-sidebar__brand-sub {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--uaar-text-on-dark-muted);
+}
+
+.admin-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+}
+
+.admin-nav__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--uaar-sidebar-icon);
+    padding: 0.85rem 0.75rem 0.35rem;
+    margin: 0;
+    border-top: 1px solid var(--uaar-sidebar-border);
+}
+
+.admin-nav__label:first-child {
+    border-top: none;
+    padding-top: 0.35rem;
+}
+
+.admin-nav__link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--uaar-radius-sm);
+    color: var(--uaar-text-on-dark-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-nav__link i {
+    font-size: 1.1rem;
+    width: 1.25rem;
+    text-align: center;
+    color: var(--uaar-sidebar-icon);
+    opacity: 0.95;
+}
+
+.admin-nav__link:hover {
+    background: var(--uaar-sidebar-hover-bg);
+    color: var(--uaar-text-on-dark);
+}
+
+.admin-nav__link:hover i {
+    color: var(--uaar-text-on-dark);
+}
+
+.admin-nav__link.is-active {
+    background: var(--uaar-sidebar-active-bg);
+    color: var(--uaar-text-inverse);
+}
+
+.admin-nav__link.is-active i {
+    color: var(--uaar-text-inverse);
+    opacity: 1;
+}
+
+.admin-nav__link--muted {
+    opacity: 0.55;
+    cursor: default;
+    pointer-events: none;
+}
+
+.admin-sidebar__footer {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--uaar-radius);
+    background: var(--uaar-sidebar-footer-bg);
+    border: 1px solid var(--uaar-sidebar-border);
+    font-size: 0.8rem;
+    color: var(--uaar-text-on-dark-muted);
+}
+
+.admin-main {
+    flex: 1;
+    margin-left: var(--uaar-sidebar-width);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-header {
+    background: var(--uaar-surface-elevated);
+    border-bottom: 1px solid var(--uaar-border);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.admin-header__left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.admin-header__menu-btn {
+    display: none;
+    border: 1px solid var(--uaar-border);
+    background: color-mix(in srgb, var(--uaar-reseda-green) 12%, white);
+    color: var(--uaar-dark-moss);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--uaar-radius-sm);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.admin-header__greeting {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--uaar-pakistan-green);
+}
+
+.admin-header__sub {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--uaar-fern-green);
+    font-weight: 500;
+}
+
+.admin-header__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-user-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.35rem;
+    background: var(--uaar-surface);
+    border: 1px solid var(--uaar-border);
+    border-radius: 999px;
+}
+
+.admin-user-pill__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--uaar-dark-moss);
+    color: var(--uaar-text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.admin-user-pill__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--uaar-dark-green);
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-content {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.admin-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--uaar-overlay);
+    z-index: 1035;
+}
+
+/* Dashboard */
+.admin-stat-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.admin-stat-grid--compact {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 576px) {
+    .admin-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .admin-stat-grid--compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .admin-stat-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .admin-stat-grid--compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.admin-stat-card {
+    background: var(--uaar-surface-elevated);
+    border: 1px solid var(--uaar-border);
+    border-radius: var(--uaar-radius);
+    padding: 1.15rem 1.25rem;
+    box-shadow: var(--uaar-shadow);
+    border-top: 4px solid var(--uaar-fern-green);
+}
+
+.admin-stat-card--accent-fern {
+    border-top-color: var(--uaar-fern-green);
+}
+
+.admin-stat-card--accent-moss {
+    border-top-color: var(--uaar-dark-moss);
+}
+
+.admin-stat-card--accent-reseda {
+    border-top-color: var(--uaar-reseda-green);
+}
+
+.admin-stat-card--accent-pakistan {
+    border-top-color: var(--uaar-pakistan-green);
+}
+
+.admin-stat-card__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--uaar-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+
+.admin-stat-card__value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--uaar-pakistan-green);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.admin-stat-card__value--text {
+    font-size: 1.05rem;
+    text-transform: capitalize;
+    color: var(--uaar-dark-moss);
+}
+
+.admin-panel-card {
+    background: var(--uaar-surface-elevated);
+    border: 1px solid var(--uaar-border);
+    border-radius: var(--uaar-radius);
+    padding: 1.5rem;
+    box-shadow: var(--uaar-shadow);
+    height: 100%;
+}
+
+.admin-panel-card--tips {
+    border-left: 4px solid var(--uaar-reseda-green);
+}
+
+.admin-panel-card__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--uaar-dark-green);
+}
+
+.admin-panel-card__text {
+    color: var(--uaar-text-muted);
+}
+
+.admin-panel-card__meta {
+    color: var(--uaar-text-muted);
+}
+
+.admin-panel-card__meta strong {
+    color: var(--uaar-fern-green);
+}
+
+.admin-panel-card__list {
+    color: var(--uaar-text-muted);
+    font-size: 0.875rem;
+}
+
+/* Login / guest auth */
+.admin-auth {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: var(--uaar-surface);
+}
+
+.admin-auth-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-auth-hero {
+    display: none;
+    flex: 1;
+    position: relative;
+    background-color: var(--uaar-pakistan-green);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--uaar-text-on-dark);
+}
+
+.admin-auth-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        var(--uaar-hero-overlay-start) 0%,
+        var(--uaar-hero-overlay-mid) 50%,
+        var(--uaar-hero-overlay-end) 100%
+    );
+}
+
+.admin-auth-hero__inner {
+    position: relative;
+    z-index: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100%;
+}
+
+.admin-auth-hero__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    max-width: 28rem;
+    color: var(--uaar-text-on-dark);
+}
+
+.admin-auth-hero__text {
+    margin: 0;
+    max-width: 26rem;
+    font-size: 0.95rem;
+    color: var(--uaar-text-on-dark-muted);
+}
+
+@media (min-width: 992px) {
+    .admin-auth-hero {
+        display: block;
+    }
+}
+
+.admin-auth-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+}
+
+.admin-auth-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.admin-auth-card__logo {
+    display: block;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin: 0 auto 1.25rem;
+}
+
+.admin-auth-card__heading {
+    text-align: center;
+    font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--uaar-pakistan-green);
+    margin: 0 0 0.35rem;
+}
+
+.admin-auth-card__sub {
+    text-align: center;
+    color: var(--uaar-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.75rem;
+}
+
+.admin-auth .form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--uaar-text-muted);
+}
+
+.admin-auth .form-control {
+    border-radius: var(--uaar-radius-sm);
+    border-color: var(--uaar-border);
+    padding: 0.65rem 0.85rem;
+    background: var(--uaar-auth-input-bg);
+}
+
+.admin-auth .form-control:focus {
+    border-color: var(--uaar-reseda-green);
+    box-shadow: 0 0 0 0.2rem var(--uaar-focus-ring);
+}
+
+.admin-auth .btn-login {
+    width: 100%;
+    padding: 0.7rem;
+    border: none;
+    border-radius: var(--uaar-radius-sm);
+    background: var(--uaar-fern-green);
+    color: var(--uaar-text-inverse);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.admin-auth .btn-login:hover {
+    background: var(--uaar-dark-moss);
+}
+
+.admin-auth a {
+    color: var(--uaar-fern-green);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.admin-auth a:hover {
+    color: var(--uaar-dark-moss);
+    text-decoration: underline;
+}
+
+/* Mobile sidebar */
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .admin-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .admin-header__menu-btn {
+        display: inline-flex;
+    }
+
+    .admin-overlay.is-visible {
+        display: block;
+    }
+
+    .admin-user-pill__name {
+        display: none;
+    }
+}

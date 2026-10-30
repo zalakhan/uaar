@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Concerns\ThrottlesGuestAuthRoutes;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +17,8 @@ use Illuminate\View\View;
 
 class NewPasswordController extends Controller
 {
+    use ThrottlesGuestAuthRoutes;
+
     /**
      * Display the password reset view.
      */
@@ -31,6 +34,8 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $this->throttleGuestAuthRequest($request, 'reset-password', 3);
+
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],

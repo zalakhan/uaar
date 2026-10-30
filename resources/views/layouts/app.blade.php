@@ -7,52 +7,72 @@
 
     <title>{{ config('app.name', 'UAAR Admin') }} @isset($title) — {{ $title }} @endisset</title>
 
+    <link rel="icon" href="{{ asset('images/admin/favicon.png') }}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
-<body class="bg-light">
-    <div class="d-flex" style="min-height: 100vh;">
-        {{-- Sidebar --}}
-        <nav class="bg-dark text-white p-3" style="width: 260px; min-height: 100vh;">
-            <div class="mb-4">
-                <a href="{{ route('admin.dashboard') }}" class="text-white text-decoration-none">
-                    <h5 class="mb-0">{{ config('app.name') }}</h5>
-                    <small class="text-secondary">Admin Panel</small>
-                </a>
-            </div>
+<body class="admin-app">
+    <div class="admin-shell">
+        <nav class="admin-sidebar" id="admin-sidebar" aria-label="Admin navigation">
+            <a href="{{ route('admin.dashboard') }}" class="admin-sidebar__brand">
+                <img src="{{ asset('images/admin/favicon.png') }}"
+                     alt="{{ config('app.name') }}"
+                     class="admin-sidebar__logo"
+                     width="44"
+                     height="44">
+                <span>
+                    <span class="admin-sidebar__brand-text">{{ config('app.name') }}</span>
+                    <span class="admin-sidebar__brand-sub">Admin Panel</span>
+                </span>
+            </a>
 
-            <ul class="nav flex-column gap-1">
-                <li class="nav-item">
+            <ul class="admin-nav">
+                <li>
                     <a href="{{ route('admin.dashboard') }}"
-                       class="nav-link text-white {{ request()->routeIs('admin.dashboard') ? 'active bg-primary rounded' : '' }}">
+                       class="admin-nav__link {{ request()->routeIs('admin.dashboard') ? 'is-active' : '' }}">
+                        <i class="bi bi-speedometer2" aria-hidden="true"></i>
                         Dashboard
                     </a>
                 </li>
 
                 @can('users.view')
-                <li class="nav-item">
+                <li>
                     <a href="{{ route('admin.users.index') }}"
-                       class="nav-link text-white {{ request()->routeIs('admin.users.*') ? 'active bg-primary rounded' : '' }}">
+                       class="admin-nav__link {{ request()->routeIs('admin.users.*') ? 'is-active' : '' }}">
+                        <i class="bi bi-people" aria-hidden="true"></i>
                         Users
                     </a>
                 </li>
                 @endcan
 
-                <li class="nav-item mt-3">
-                    <span class="nav-link text-secondary small text-uppercase">Modules</span>
+                @if (auth()->user()->isSuperAdmin())
+                <li>
+                    <a href="{{ route('admin.account.password.edit') }}"
+                       class="admin-nav__link {{ request()->routeIs('admin.account.password.*') ? 'is-active' : '' }}">
+                        <i class="bi bi-key" aria-hidden="true"></i>
+                        Change Password
+                    </a>
                 </li>
+                @endif
+
+                <li class="admin-nav__label">Modules</li>
                 @php
                     $moduleRoutes = [
-                        'galleries' => 'admin.galleries.index',
-                        'news' => 'admin.news.index',
-                        'tenders' => 'admin.tenders.index',
-                        'campus_publications' => 'admin.campus-publications.index',
-                        'jobs' => 'admin.jobs.index',
-                        'departments' => 'admin.departments.index',
-                        'designations' => 'admin.designations.index',
-                        'faculties' => 'admin.faculties.index',
-                        'faculty_members' => 'admin.faculty-members.index',
-                        'staff_members' => 'admin.staff-members.index',
+                        'galleries' => ['route' => 'admin.galleries.index', 'icon' => 'bi-images'],
+                        'news' => ['route' => 'admin.news.index', 'icon' => 'bi-newspaper'],
+                        'tenders' => ['route' => 'admin.tenders.index', 'icon' => 'bi-file-earmark-text'],
+                        'campus_publications' => ['route' => 'admin.campus-publications.index', 'icon' => 'bi-journal-bookmark'],
+                        'jobs' => ['route' => 'admin.jobs.index', 'icon' => 'bi-briefcase'],
+                        'departments' => ['route' => 'admin.departments.index', 'icon' => 'bi-building'],
+                        'designations' => ['route' => 'admin.designations.index', 'icon' => 'bi-award'],
+                        'faculties' => ['route' => 'admin.faculties.index', 'icon' => 'bi-mortarboard'],
+                        'faculty_members' => ['route' => 'admin.faculty-members.index', 'icon' => 'bi-person-badge'],
+                        'staff_members' => ['route' => 'admin.staff-members.index', 'icon' => 'bi-person-workspace'],
                     ];
                 @endphp
                 @foreach (config('modules') as $slug => $label)
@@ -60,27 +80,30 @@
                         @continue
                     @endif
                     @can("{$slug}.view")
-                        <li class="nav-item">
+                        <li>
                             @if (isset($moduleRoutes[$slug]))
                                 @php $routePrefix = str_replace('_', '-', $slug); @endphp
-                                <a href="{{ route($moduleRoutes[$slug]) }}"
-                                   class="nav-link text-white {{ request()->routeIs('admin.'.$routePrefix.'.*') ? 'active bg-primary rounded' : '' }}">
+                                <a href="{{ route($moduleRoutes[$slug]['route']) }}"
+                                   class="admin-nav__link {{ request()->routeIs('admin.'.$routePrefix.'.*') ? 'is-active' : '' }}">
+                                    <i class="bi {{ $moduleRoutes[$slug]['icon'] }}" aria-hidden="true"></i>
                                     {{ $label }}
                                 </a>
                             @else
-                                <span class="nav-link text-white-50">{{ $label }}</span>
+                                <span class="admin-nav__link admin-nav__link--muted">
+                                    <i class="bi bi-grid" aria-hidden="true"></i>
+                                    {{ $label }}
+                                </span>
                             @endif
                         </li>
                     @endcan
                 @endforeach
 
                 @can('newsprint.view')
-                <li class="nav-item mt-3">
-                    <span class="nav-link text-secondary small text-uppercase">Media Coverage</span>
-                </li>
-                <li class="nav-item">
+                <li class="admin-nav__label">Media Coverage</li>
+                <li>
                     <a href="{{ route('admin.newsprint-albums.index') }}"
-                       class="nav-link text-white {{ request()->routeIs('admin.newsprint-albums.*') || request()->routeIs('admin.newspapers.*') ? 'active bg-primary rounded' : '' }}">
+                       class="admin-nav__link {{ request()->routeIs('admin.newsprint-albums.*') || request()->routeIs('admin.newspapers.*') ? 'is-active' : '' }}">
+                        <i class="bi bi-printer" aria-hidden="true"></i>
                         Print
                     </a>
                 </li>
@@ -88,14 +111,36 @@
             </ul>
         </nav>
 
-        {{-- Main content --}}
-        <div class="flex-grow-1 d-flex flex-column">
-            <header class="bg-white border-bottom px-4 py-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="h5 mb-0">@yield('page-title', 'Dashboard')</h1>
+        <div class="admin-overlay" id="admin-overlay" aria-hidden="true"></div>
+
+        <div class="admin-main">
+            @php
+                $hour = (int) now()->format('G');
+                $greeting = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
+                $initials = collect(explode(' ', auth()->user()->name))
+                    ->filter()
+                    ->take(2)
+                    ->map(fn ($part) => strtoupper(substr($part, 0, 1)))
+                    ->join('');
+            @endphp
+            <header class="admin-header">
+                <div class="admin-header__left">
+                    <button type="button" class="admin-header__menu-btn" id="admin-menu-btn" aria-label="Open menu">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div>
+                        <p class="admin-header__sub">{{ $greeting }}</p>
+                        <h1 class="admin-header__greeting">@yield('page-title', 'Dashboard')</h1>
+                    </div>
                 </div>
-                <div class="d-flex align-items-center gap-3">
-                    <span class="text-muted small">{{ auth()->user()->name }}</span>
+                <div class="admin-header__right">
+                    <div class="admin-user-pill">
+                        <span class="admin-user-pill__avatar" aria-hidden="true">{{ $initials ?: 'U' }}</span>
+                        <span class="admin-user-pill__name">{{ auth()->user()->name }}</span>
+                    </div>
+                    @if (auth()->user()->isSuperAdmin())
+                        <a href="{{ route('admin.account.password.edit') }}" class="btn btn-outline-primary btn-sm">Change password</a>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
@@ -103,7 +148,7 @@
                 </div>
             </header>
 
-            <main class="p-4 flex-grow-1">
+            <main class="admin-content">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
@@ -123,6 +168,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
