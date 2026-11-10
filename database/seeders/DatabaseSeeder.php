@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RolePermissionSeeder::class);
+        $this->call([
+            RolePermissionSeeder::class,
+            RegistrationFieldSeeder::class,
+        ]);
 
         // Sample faculty and department for testing org structure
         $faculty = Faculty::firstOrCreate(
@@ -36,8 +39,12 @@ class DatabaseSeeder extends Seeder
         );
 
         // Web manager account (super_admin, no department)
+        User::where('email', 'admin@uaar.edu.pk')
+            ->whereHas('roles', fn ($query) => $query->where('name', 'super_admin'))
+            ->update(['email' => 'webmaster@uaar.edu.pk']);
+
         $superAdmin = User::firstOrCreate(
-            ['email' => 'admin@uaar.edu.pk'],
+            ['email' => 'webmaster@uaar.edu.pk'],
             [
                 'name' => 'Web Manager',
                 'password' => Hash::make('password'),

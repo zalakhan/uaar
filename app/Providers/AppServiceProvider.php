@@ -3,19 +3,24 @@
 namespace App\Providers;
 
 use App\Models\CampusPublication;
+use App\Models\Event;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Faculty;
 use App\Models\FacultyMember;
 use App\Models\Gallery;
 use App\Models\Job;
+use App\Models\EventRegistration;
 use App\Models\News;
+use App\Models\RegistrationField;
 use App\Models\Newspaper;
 use App\Models\NewsprintAlbum;
 use App\Models\StaffMember;
 use App\Models\Tender;
 use App\Models\User;
 use App\Policies\CampusPublicationPolicy;
+use App\Policies\EventPolicy;
+use App\Policies\EventRegistrationPolicy;
 use App\Policies\DepartmentPolicy;
 use App\Policies\DesignationPolicy;
 use App\Policies\FacultyMemberPolicy;
@@ -23,6 +28,7 @@ use App\Policies\FacultyPolicy;
 use App\Policies\GalleryPolicy;
 use App\Policies\JobPolicy;
 use App\Policies\NewsPolicy;
+use App\Policies\RegistrationFieldPolicy;
 use App\Policies\NewspaperPolicy;
 use App\Policies\NewsprintAlbumPolicy;
 use App\Policies\StaffMemberPolicy;
@@ -63,6 +69,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Job::class, JobPolicy::class);
         Gate::policy(Newspaper::class, NewspaperPolicy::class);
         Gate::policy(NewsprintAlbum::class, NewsprintAlbumPolicy::class);
+        Gate::policy(Event::class, EventPolicy::class);
+        Gate::policy(RegistrationField::class, RegistrationFieldPolicy::class);
+        Gate::define('event-registrations.view-event', [EventRegistrationPolicy::class, 'viewEvent']);
+        Gate::define('event-registrations.export', [EventRegistrationPolicy::class, 'export']);
+        Gate::policy(EventRegistration::class, EventRegistrationPolicy::class);
         Paginator::useBootstrapFive();
 
         // Ensure generated asset URLs match the configured application URL (needed for XAMPP subdirectories).

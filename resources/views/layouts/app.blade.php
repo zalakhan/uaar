@@ -73,13 +73,23 @@
                         'faculties' => ['route' => 'admin.faculties.index', 'icon' => 'bi-mortarboard'],
                         'faculty_members' => ['route' => 'admin.faculty-members.index', 'icon' => 'bi-person-badge'],
                         'staff_members' => ['route' => 'admin.staff-members.index', 'icon' => 'bi-person-workspace'],
+                        'events' => ['route' => 'admin.events.index', 'icon' => 'bi-calendar-event'],
+                        'registration_fields' => ['route' => 'admin.registration-fields.index', 'icon' => 'bi-input-cursor-text'],
+                        'event_registrations' => ['route' => 'admin.event-registrations.events-index', 'icon' => 'bi-clipboard-check'],
                     ];
                 @endphp
                 @foreach (config('modules') as $slug => $label)
                     @if ($slug === 'newsprint')
                         @continue
                     @endif
-                    @can("{$slug}.view")
+                    @php
+                        $showModule = auth()->user()->can("{$slug}.view");
+                        if ($slug === 'event_registrations') {
+                            $showModule = $showModule
+                                || auth()->user()->canAccessEventRegistrationsModule();
+                        }
+                    @endphp
+                    @if ($showModule)
                         <li>
                             @if (isset($moduleRoutes[$slug]))
                                 @php $routePrefix = str_replace('_', '-', $slug); @endphp
@@ -95,7 +105,7 @@
                                 </span>
                             @endif
                         </li>
-                    @endcan
+                    @endif
                 @endforeach
 
                 @can('newsprint.view')

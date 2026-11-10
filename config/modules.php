@@ -20,4 +20,7 @@ return [
     'faculties' => 'Faculties',
     'faculty_members' => 'Faculty Members',
     'staff_members' => 'Staff Members',
+    'events' => 'Events',
+    'registration_fields' => 'Registration Field Library',
+    'event_registrations' => 'Event Registrations',
 ];

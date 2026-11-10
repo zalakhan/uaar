@@ -207,8 +207,15 @@ body.public-body {
     letter-spacing: 0.03em;
 }
 
+.public-required {
+    color: #c0392b;
+    font-weight: 700;
+    margin-left: 0.15rem;
+}
+
 .public-input,
-.public-select {
+.public-select,
+textarea.public-input {
     width: 100%;
     padding: 0.65rem 0.85rem;
     font-size: 1rem;
@@ -218,22 +225,44 @@ body.public-body {
     color: var(--uaar-text);
 }
 
+textarea.public-input {
+    min-height: 6rem;
+    resize: vertical;
+}
+
+.public-input--file {
+    padding: 0.45rem 0.85rem;
+}
+
 .public-input:focus,
-.public-select:focus {
+.public-select:focus,
+textarea.public-input:focus {
     outline: none;
     border-color: var(--uaar-green);
     box-shadow: 0 0 0 3px rgba(0, 146, 79, 0.15);
 }
 
 .public-input.is-invalid,
-.public-select.is-invalid {
+.public-select.is-invalid,
+textarea.public-input.is-invalid {
     border-color: #c0392b;
+    background-color: #fff8f7;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
 }
 
 .public-field-error {
     margin: 0;
     font-size: 0.8rem;
     color: #c0392b;
+}
+
+/* Client-side validation hints (public layout does not load Bootstrap) */
+.public-field-error--client {
+    display: none;
+}
+
+.public-field-error--client.is-visible {
+    display: block;
 }
 
 .public-form-actions {
@@ -296,6 +325,69 @@ body.public-body {
     background: var(--uaar-danger-bg);
     color: var(--uaar-danger-text);
     border: 1px solid #f0c4c0;
+}
+
+.public-alert--warning {
+    background: #fff8e6;
+    color: #7a5c00;
+    border: 1px solid #f0dfa0;
+}
+
+.public-alert--info {
+    background: var(--uaar-green-light);
+    color: var(--uaar-text);
+    border: 1px solid #b8e0c8;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.public-card__aside-meta {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.public-card__subtitle {
+    margin: -0.5rem 0 1rem;
+    font-size: 0.95rem;
+    color: var(--uaar-muted);
+}
+
+.public-card__event-ref {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--uaar-green);
+    letter-spacing: 0.02em;
+}
+
+.public-form-grid--dynamic {
+    margin-top: 1rem;
+}
+
+.public-registration-number {
+    margin: 0.5rem 0 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--uaar-green);
+    letter-spacing: 0.03em;
+}
+
+.public-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .public-results {

@@ -5,26 +5,32 @@
     'type' => 'text',
     'value' => null,
     'error' => null,
+    'validationKey' => null,
 ])
 
 @php
     $fieldId = $id ?? $name;
+    $messageKey = $validationKey ?? $name;
+    $isRequired = $attributes->has('required');
+    $hasError = $errors->has($messageKey) || $error;
 @endphp
 
 <div class="public-field">
-    <label class="public-label" for="{{ $fieldId }}">{{ $label }}</label>
+    <x-public.field-label :for="$fieldId" :required="$isRequired">{{ $label }}</x-public.field-label>
     <input
         type="{{ $type }}"
         name="{{ $name }}"
         id="{{ $fieldId }}"
-        value="{{ old($name, $value) }}"
-        {{ $attributes->merge(['class' => 'public-input'.( $errors->has($name) || $error ? ' is-invalid' : '')]) }}
+        value="{{ old($messageKey, $value) }}"
+        {{ $attributes->merge(['class' => 'public-input'.($hasError ? ' is-invalid' : '')]) }}
     >
-    @error($name)
-        <p class="public-field-error">{{ $message }}</p>
+    @error($messageKey)
+        <p class="public-field-error" role="alert">{{ $message }}</p>
     @else
         @if ($error)
-            <p class="public-field-error">{{ $error }}</p>
+            <p class="public-field-error" role="alert">{{ $error }}</p>
+        @else
+            <p class="public-field-error public-field-error--client" data-client-error role="alert">This field is required.</p>
         @endif
     @enderror
 </div>

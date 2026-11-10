@@ -64,4 +64,41 @@ class User extends Authenticatable
     {
         return $this->hasRole('super_admin');
     }
+
+    public function isDepartmentAdmin(): bool
+    {
+        return $this->hasRole('dept_admin');
+    }
+
+    /**
+     * Whether this user may open the Event Registrations module in the sidebar.
+     */
+    public function canAccessEventRegistrationsModule(): bool
+    {
+        if ($this->isSuperAdmin() || $this->can('event_registrations.view')) {
+            return true;
+        }
+
+        return $this->isDepartmentAdmin() && $this->department_id !== null;
+    }
+
+    /**
+     * Registrations for an event: Super Admin, or dept_admin of the organizing department.
+     */
+    public function canViewRegistrationsForEvent(Event $event): bool
+    {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        if (! $this->isDepartmentAdmin()) {
+            return false;
+        }
+
+        if ($this->department_id === null || $event->department_id === null) {
+            return false;
+        }
+
+        return (int) $this->department_id === (int) $event->department_id;
+    }
 }

@@ -23,7 +23,12 @@ use App\Http\Controllers\Admin\StaffMemberOrderController;
 use App\Http\Controllers\Admin\TenderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserPermissionController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\EventFormBuilderController;
+use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
+use App\Http\Controllers\Admin\RegistrationFieldController;
 use App\Http\Controllers\DegreeVerificationController;
+use App\Http\Controllers\EventRegistrationPublicController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,6 +44,17 @@ Route::get('/degree-verification', [DegreeVerificationController::class, 'index'
 Route::post('/degree-verification', [DegreeVerificationController::class, 'store'])
     ->middleware('throttle:30,1')
     ->name('degree-verification.store');
+
+Route::get('/register/{slug}', [EventRegistrationPublicController::class, 'show'])
+    ->name('event-registration.show');
+Route::post('/register/{slug}', [EventRegistrationPublicController::class, 'store'])
+    ->middleware('throttle:10,1')
+    ->name('event-registration.store');
+Route::get('/register/{slug}/success/{registration}', [EventRegistrationPublicController::class, 'success'])
+    ->name('event-registration.success');
+Route::get('/register/{slug}/fields', [EventRegistrationPublicController::class, 'fields'])
+    ->middleware('throttle:60,1')
+    ->name('event-registration.fields');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -105,6 +121,24 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('tenders', TenderController::class);
     Route::resource('campus-publications', CampusPublicationController::class);
     Route::resource('jobs', JobController::class);
+
+    Route::resource('events', EventController::class);
+    Route::post('events/{event}/publish', [EventController::class, 'publish'])->name('events.publish');
+    Route::post('events/{event}/close', [EventController::class, 'close'])->name('events.close');
+    Route::get('events/{event}/form-builder', [EventFormBuilderController::class, 'edit'])->name('events.form-builder.edit');
+    Route::put('events/{event}/form-builder', [EventFormBuilderController::class, 'update'])->name('events.form-builder.update');
+    Route::get('events/{event}/form-preview', [EventFormBuilderController::class, 'preview'])->name('events.form-preview');
+    Route::resource('registration-fields', RegistrationFieldController::class)
+        ->parameters(['registration-fields' => 'registration_field']);
+
+    Route::get('event-registrations', [AdminEventRegistrationController::class, 'eventsIndex'])
+        ->name('event-registrations.events-index');
+    Route::get('events/{event}/registrations', [AdminEventRegistrationController::class, 'index'])
+        ->name('events.registrations.index');
+    Route::get('events/{event}/registrations/export', [AdminEventRegistrationController::class, 'export'])
+        ->name('events.registrations.export');
+    Route::get('events/{event}/registrations/{registration}', [AdminEventRegistrationController::class, 'show'])
+        ->name('events.registrations.show');
 
     Route::resource('newspapers', NewspaperController::class)->except(['show']);
     Route::resource('newsprint-albums', NewsprintAlbumController::class);

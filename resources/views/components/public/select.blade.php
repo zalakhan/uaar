@@ -6,23 +6,27 @@
     'placeholder' => null,
     'value' => null,
     'error' => null,
+    'validationKey' => null,
 ])
 
 @php
     $fieldId = $id ?? $name;
-    $selected = old($name, $value);
+    $messageKey = $validationKey ?? $name;
+    $selected = old($messageKey, $value);
+    $isRequired = $attributes->has('required');
+    $hasError = $errors->has($messageKey) || $error;
 @endphp
 
 <div class="public-field">
-    <label class="public-label" for="{{ $fieldId }}">{{ $label }}</label>
+    <x-public.field-label :for="$fieldId" :required="$isRequired">{{ $label }}</x-public.field-label>
     <select
         name="{{ $name }}"
         id="{{ $fieldId }}"
-        class="public-select @error($name) is-invalid @enderror {{ $error ? 'is-invalid' : '' }}"
+        class="public-select @if($hasError) is-invalid @endif"
         {{ $attributes }}
     >
         @if ($placeholder)
-            <option value="" disabled @selected($selected === null || $selected === '')>{{ $placeholder }}</option>
+            <option value="" disabled @selected($selected === null || $selected === '') hidden>{{ $placeholder }}</option>
         @endif
         @foreach ($options as $optionValue => $optionLabel)
             <option value="{{ $optionValue }}" @selected((string) $selected === (string) $optionValue)>
@@ -30,11 +34,13 @@
             </option>
         @endforeach
     </select>
-    @error($name)
-        <p class="public-field-error">{{ $message }}</p>
+    @error($messageKey)
+        <p class="public-field-error" role="alert">{{ $message }}</p>
     @else
         @if ($error)
-            <p class="public-field-error">{{ $error }}</p>
+            <p class="public-field-error" role="alert">{{ $error }}</p>
+        @else
+            <p class="public-field-error public-field-error--client" data-client-error role="alert">This field is required.</p>
         @endif
     @enderror
 </div>

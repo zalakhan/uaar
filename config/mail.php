@@ -113,4 +113,17 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Event registration confirmation emails
+    |--------------------------------------------------------------------------
+    */
+
+    'event_registration' => [
+        'from' => [
+            'address' => env('MAIL_EVENT_FROM_ADDRESS', 'webmaster@uaar.edu.pk'),
+            'name' => env('MAIL_EVENT_FROM_NAME', 'PMAS-Arid Agriculture University Rawalpindi'),
+        ],
+    ],
+
 ];
